@@ -8,6 +8,7 @@ import { View, TextInput, Logo, Button, FormErrorMessage } from "../components";
 import { Images, Colors, auth } from "../config";
 import { useTogglePasswordVisibility } from "../hooks";
 import { loginValidationSchema } from "../utils";
+import i18n from "../i18n";
 
 export const LoginScreen = ({ navigation }) => {
   const [errorState, setErrorState] = useState("");
@@ -27,7 +28,7 @@ export const LoginScreen = ({ navigation }) => {
           {/* LogoContainer: consist app logo and screen title */}
           <View style={styles.logoContainer}>
             <Logo uri={Images.logo} />
-            <Text style={styles.screenTitle}>Welcome back!</Text>
+            <Text style={styles.screenTitle}>{i18n.t('welcomeBack')}</Text>
           </View>
           <Formik
             initialValues={{
@@ -50,7 +51,7 @@ export const LoginScreen = ({ navigation }) => {
                 <TextInput
                   name="email"
                   leftIconName="email"
-                  placeholder="Enter email"
+                  placeholder={i18n.t('enterEmail')}
                   autoCapitalize="none"
                   keyboardType="email-address"
                   textContentType="emailAddress"
@@ -66,7 +67,7 @@ export const LoginScreen = ({ navigation }) => {
                 <TextInput
                   name="password"
                   leftIconName="key-variant"
-                  placeholder="Enter password"
+                  placeholder={i18n.t('enterPassword')}
                   autoCapitalize="none"
                   autoCorrect={false}
                   secureTextEntry={passwordVisibility}
@@ -87,7 +88,7 @@ export const LoginScreen = ({ navigation }) => {
                 ) : null}
                 {/* Login button */}
                 <Button style={styles.button} onPress={handleSubmit}>
-                  <Text style={styles.buttonText}>Login</Text>
+                  <Text style={styles.buttonText}>{i18n.t('login')}</Text>
                 </Button>
               </>
             )}
@@ -96,13 +97,13 @@ export const LoginScreen = ({ navigation }) => {
           <Button
             style={styles.borderlessButtonContainer}
             borderless
-            title={"Create a new account?"}
+            title={i18n.t('createNewAccount')}
             onPress={() => navigation.navigate("Signup")}
           />
           <Button
             style={styles.borderlessButtonContainer}
             borderless
-            title={"Forgot Password"}
+            title={i18n.t('forgotPassword')}
             onPress={() => navigation.navigate("ForgotPassword")}
           />
         </KeyboardAwareScrollView>
@@ -110,7 +111,7 @@ export const LoginScreen = ({ navigation }) => {
 
       {/* App info footer */}
       <View style={styles.footer}>
-        <Text style={styles.footerText}>Expo Firebase Starter App</Text>
+        <Text style={styles.footerText}>{i18n.t('appName')}</Text>
       </View>
     </>
   );

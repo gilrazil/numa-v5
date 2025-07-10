@@ -8,6 +8,7 @@ import { View, TextInput, Logo, Button, FormErrorMessage } from "../components";
 import { Images, Colors, auth } from "../config";
 import { useTogglePasswordVisibility } from "../hooks";
 import { signupValidationSchema } from "../utils";
+import i18n from "../i18n";
 
 export const SignupScreen = ({ navigation }) => {
   const [errorState, setErrorState] = useState("");
@@ -35,7 +36,7 @@ export const SignupScreen = ({ navigation }) => {
         {/* LogoContainer: consist app logo and screen title */}
         <View style={styles.logoContainer}>
           <Logo uri={Images.logo} />
-          <Text style={styles.screenTitle}>Create a new account!</Text>
+          <Text style={styles.screenTitle}>{i18n.t('createAccount')}</Text>
         </View>
         {/* Formik Wrapper */}
         <Formik
@@ -60,7 +61,7 @@ export const SignupScreen = ({ navigation }) => {
               <TextInput
                 name="email"
                 leftIconName="email"
-                placeholder="Enter email"
+                placeholder={i18n.t('enterEmail')}
                 autoCapitalize="none"
                 keyboardType="email-address"
                 textContentType="emailAddress"
@@ -73,7 +74,7 @@ export const SignupScreen = ({ navigation }) => {
               <TextInput
                 name="password"
                 leftIconName="key-variant"
-                placeholder="Enter password"
+                placeholder={i18n.t('enterPassword')}
                 autoCapitalize="none"
                 autoCorrect={false}
                 secureTextEntry={passwordVisibility}
@@ -91,7 +92,7 @@ export const SignupScreen = ({ navigation }) => {
               <TextInput
                 name="confirmPassword"
                 leftIconName="key-variant"
-                placeholder="Enter password"
+                placeholder={i18n.t('confirmPassword')}
                 autoCapitalize="none"
                 autoCorrect={false}
                 secureTextEntry={confirmPasswordVisibility}
@@ -112,7 +113,7 @@ export const SignupScreen = ({ navigation }) => {
               ) : null}
               {/* Signup button */}
               <Button style={styles.button} onPress={handleSubmit}>
-                <Text style={styles.buttonText}>Signup</Text>
+                <Text style={styles.buttonText}>{i18n.t('signUp')}</Text>
               </Button>
             </>
           )}
@@ -121,7 +122,7 @@ export const SignupScreen = ({ navigation }) => {
         <Button
           style={styles.borderlessButtonContainer}
           borderless
-          title={"Already have an account?"}
+          title={i18n.t('alreadyHaveAccount')}
           onPress={() => navigation.navigate("Login")}
         />
       </KeyboardAwareScrollView>

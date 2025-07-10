@@ -6,6 +6,7 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { passwordResetSchema } from "../utils";
 import { Colors, auth } from "../config";
 import { View, TextInput, Button, FormErrorMessage } from "../components";
+import i18n from "../i18n";
 
 export const ForgotPasswordScreen = ({ navigation }) => {
   const [errorState, setErrorState] = useState("");
@@ -24,7 +25,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
   return (
     <View isSafe style={styles.container}>
       <View style={styles.innerContainer}>
-        <Text style={styles.screenTitle}>Reset your password</Text>
+        <Text style={styles.screenTitle}>{i18n.t('resetPassword')}</Text>
       </View>
       <Formik
         initialValues={{ email: "" }}
@@ -44,7 +45,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
             <TextInput
               name="email"
               leftIconName="email"
-              placeholder="Enter email"
+              placeholder={i18n.t('enterEmail')}
               autoCapitalize="none"
               keyboardType="email-address"
               textContentType="emailAddress"
@@ -59,7 +60,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
             ) : null}
             {/* Password Reset Send Email  button */}
             <Button style={styles.button} onPress={handleSubmit}>
-              <Text style={styles.buttonText}>Send Reset Email</Text>
+              <Text style={styles.buttonText}>{i18n.t('sendResetEmail')}</Text>
             </Button>
           </>
         )}
@@ -68,7 +69,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
       <Button
         style={styles.borderlessButtonContainer}
         borderless
-        title={"Go back to Login"}
+        title={i18n.t('login')}
         onPress={() => navigation.navigate("Login")}
       />
     </View>
