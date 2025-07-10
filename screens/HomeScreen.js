@@ -10,14 +10,8 @@ export const HomeScreen = ({ navigation }) => {
     signOut(auth).catch((error) => console.log("Error logging out: ", error));
   };
 
-  const handleGoToGoals = () => {
-    navigation.navigate("Goal");
-  };
-
   return (
     <View style={styles.container}>
-      <Button title={i18n.t('goalTitle')} onPress={handleGoToGoals} />
-      <View style={styles.spacing} />
       <Button title={i18n.t('signOut')} onPress={handleLogout} />
     </View>
   );
@@ -28,8 +22,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  spacing: {
-    height: 20,
   },
 });

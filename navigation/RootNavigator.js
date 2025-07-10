@@ -6,11 +6,13 @@ import { AuthStack } from "./AuthStack";
 import { AppStack } from "./AppStack";
 import { AuthenticatedUserContext } from "../providers";
 import { LoadingIndicator } from "../components";
+import { SplashScreen } from "../screens";
 import { auth } from "../config";
 
 export const RootNavigator = () => {
   const { user, setUser } = useContext(AuthenticatedUserContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
     // onAuthStateChanged returns an unsubscriber
@@ -25,6 +27,14 @@ export const RootNavigator = () => {
     // unsubscribe auth listener on unmount
     return unsubscribeAuthStateChanged;
   }, [user]);
+
+  const handleSplashFinish = () => {
+    setShowSplash(false);
+  };
+
+  if (showSplash) {
+    return <SplashScreen onFinish={handleSplashFinish} />;
+  }
 
   if (isLoading) {
     return <LoadingIndicator />;
