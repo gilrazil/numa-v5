@@ -14,6 +14,8 @@ import { View } from "../components";
 import { Colors } from "../config";
 import i18n from "../i18n";
 
+console.log("🟢 GoalScreen.tsx loaded");
+
 const { width, height } = Dimensions.get('window');
 
 interface GoalOption {
@@ -29,129 +31,145 @@ interface GoalScreenProps {
 }
 
 export const GoalScreen: React.FC<GoalScreenProps> = ({ navigation }) => {
-  const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
+  console.log("🟢 GoalScreen component rendering");
+  console.log("🟢 GoalScreen navigation prop:", navigation);
+  
+  try {
+    console.log("🟢 GoalScreen initializing state");
+    const [selectedGoal, setSelectedGoal] = useState<string | null>(null);
+    
+    console.log("🟢 GoalScreen loading translations");
+    const goalOptions: GoalOption[] = [
+      { 
+        key: 'lose', 
+        label: i18n.t('lose'), 
+        icon: '↘️',
+        color: '#FF3B30',
+        gradient: ['#FF3B30', '#FF6B6B']
+      },
+      { 
+        key: 'maintain', 
+        label: i18n.t('maintain'), 
+        icon: '—',
+        color: '#007AFF',
+        gradient: ['#007AFF', '#5AC8FA']
+      },
+      { 
+        key: 'gain', 
+        label: i18n.t('gain'), 
+        icon: '↗️',
+        color: '#34C759',
+        gradient: ['#34C759', '#30D158']
+      }
+    ];
+    
+    console.log("🟢 GoalScreen goal options:", goalOptions);
 
-  const goalOptions: GoalOption[] = [
-    { 
-      key: 'lose', 
-      label: i18n.t('lose'), 
-      icon: '↘️',
-      color: '#FF3B30',
-      gradient: ['#FF3B30', '#FF6B6B']
-    },
-    { 
-      key: 'maintain', 
-      label: i18n.t('maintain'), 
-      icon: '—',
-      color: '#007AFF',
-      gradient: ['#007AFF', '#5AC8FA']
-    },
-    { 
-      key: 'gain', 
-      label: i18n.t('gain'), 
-      icon: '↗️',
-      color: '#34C759',
-      gradient: ['#34C759', '#30D158']
-    }
-  ];
+    const handleContinue = () => {
+      console.log("🟢 GoalScreen handleContinue called, selectedGoal:", selectedGoal);
+      if (selectedGoal) {
+        // Navigate to Login screen with the selected goal
+        navigation.navigate("Login", { goal: selectedGoal });
+      }
+    };
 
-  const handleContinue = () => {
-    if (selectedGoal) {
-      // Navigate to Login screen with the selected goal
-      navigation.navigate("Login", { goal: selectedGoal });
-    }
-  };
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" />
-      
-      {/* Background Gradient */}
-      <LinearGradient
-        colors={['#FAFAFA', '#F5F5F7', '#EBEBEF', '#E1E1E6']}
-        locations={[0, 0.3, 0.7, 1]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.backgroundGradient}
-      />
-      
-      {/* Subtle Pattern Overlay */}
-      <View isSafe={false} style={styles.patternOverlay}>
-        <></>
-      </View>
-      
-      <View isSafe={false} style={styles.content}>
-        {/* Header */}
-        <View isSafe={false} style={styles.header}>
-          <Text style={styles.title}>{i18n.t('goalTitle')}</Text>
-          <Text style={styles.subtitle}>{i18n.t('goalSubtitle')}</Text>
+    console.log("🟢 GoalScreen rendering UI");
+    
+    return (
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="dark-content" />
+        
+        {/* Background Gradient */}
+        <LinearGradient
+          colors={['#FAFAFA', '#F5F5F7', '#EBEBEF', '#E1E1E6']}
+          locations={[0, 0.3, 0.7, 1]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.backgroundGradient}
+        />
+        
+        {/* Subtle Pattern Overlay */}
+        <View isSafe={false} style={styles.patternOverlay}>
+          <></>
         </View>
         
-        {/* Goal Options */}
-        <View isSafe={false} style={styles.optionsContainer}>
-          {goalOptions.map((option) => (
-            <TouchableOpacity
-              key={option.key}
-              style={[
-                styles.optionCard,
-                selectedGoal === option.key && [
-                  styles.selectedCard,
-                  { shadowColor: option.color }
-                ]
-              ]}
-              onPress={() => setSelectedGoal(option.key)}
-              activeOpacity={0.7}
-            >
-              <BlurView
-                intensity={selectedGoal === option.key ? 80 : 50}
-                tint="light"
-                style={styles.blurContainer}
+        <View isSafe={false} style={styles.content}>
+          {/* Header */}
+          <View isSafe={false} style={styles.header}>
+            <Text style={styles.title}>{i18n.t('goalTitle')}</Text>
+            <Text style={styles.subtitle}>{i18n.t('goalSubtitle')}</Text>
+          </View>
+          
+          {/* Goal Options */}
+          <View isSafe={false} style={styles.optionsContainer}>
+            {goalOptions.map((option) => (
+              <TouchableOpacity
+                key={option.key}
+                style={[
+                  styles.optionCard,
+                  selectedGoal === option.key && [
+                    styles.selectedCard,
+                    { shadowColor: option.color }
+                  ]
+                ]}
+                onPress={() => setSelectedGoal(option.key)}
+                activeOpacity={0.7}
               >
-                <View isSafe={false} style={styles.cardContent}>
-                  <View isSafe={false} style={[
-                    styles.iconContainer,
-                    { backgroundColor: option.color }
-                  ]}>
-                    <Text style={styles.iconText}>{option.icon}</Text>
+                <BlurView
+                  intensity={selectedGoal === option.key ? 80 : 50}
+                  tint="light"
+                  style={styles.blurContainer}
+                >
+                  <View isSafe={false} style={styles.cardContent}>
+                    <View isSafe={false} style={[
+                      styles.iconContainer,
+                      { backgroundColor: option.color }
+                    ]}>
+                      <Text style={styles.iconText}>{option.icon}</Text>
+                    </View>
+                    <Text style={[
+                      styles.optionText,
+                      selectedGoal === option.key && { color: option.color, fontWeight: '700' }
+                    ]}>
+                      {option.label}
+                    </Text>
                   </View>
-                  <Text style={[
-                    styles.optionText,
-                    selectedGoal === option.key && { color: option.color, fontWeight: '700' }
-                  ]}>
-                    {option.label}
-                  </Text>
-                </View>
-              </BlurView>
-            </TouchableOpacity>
-          ))}
-        </View>
+                </BlurView>
+              </TouchableOpacity>
+            ))}
+          </View>
 
-        {/* Continue Button */}
-        <TouchableOpacity
-          style={[
-            styles.continueButton,
-            !selectedGoal && styles.disabledButton
-          ]}
-          onPress={handleContinue}
-          disabled={!selectedGoal}
-          activeOpacity={0.8}
-        >
-          <BlurView
-            intensity={selectedGoal ? 80 : 50}
-            tint="light"
-            style={styles.buttonBlur}
+          {/* Continue Button */}
+          <TouchableOpacity
+            style={[
+              styles.continueButton,
+              !selectedGoal && styles.disabledButton
+            ]}
+            onPress={handleContinue}
+            disabled={!selectedGoal}
+            activeOpacity={0.8}
           >
-            <Text style={[
-              styles.continueButtonText,
-              !selectedGoal && styles.disabledButtonText
-            ]}>
-              {i18n.t('continue')}
-            </Text>
-          </BlurView>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
-  );
+            <BlurView
+              intensity={selectedGoal ? 80 : 50}
+              tint="light"
+              style={styles.buttonBlur}
+            >
+              <Text style={[
+                styles.continueButtonText,
+                !selectedGoal && styles.disabledButtonText
+              ]}>
+                {i18n.t('continue')}
+              </Text>
+            </BlurView>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  } catch (error) {
+    console.log("🚨 Error in GoalScreen render:", error);
+    console.log("🚨 Error stack:", error.stack);
+    throw error;
+  }
 };
 
 const styles = StyleSheet.create({

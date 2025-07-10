@@ -22,14 +22,14 @@ export default {
     ios: {
       supportsTablet: true,
       bundleIdentifier: "com.gilraz.numa",
-      buildNumber: "1",
+      buildNumber: "2",
       infoPlist: {
         ITSAppUsesNonExemptEncryption: false
       }
     },
     android: {
       package: "com.gilraz.numa",
-      versionCode: 1,
+      versionCode: 2,
       adaptiveIcon: {
         foregroundImage: "./assets/icon.png",
         backgroundColor: "#8B5CF6"

@@ -12,6 +12,8 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+console.log("🟢 SplashScreen.tsx loaded");
+
 const { width, height } = Dimensions.get('window');
 
 interface SplashScreenProps {
@@ -19,53 +21,72 @@ interface SplashScreenProps {
 }
 
 export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
+  console.log("🟢 SplashScreen component rendering");
+  
   const logoOpacity = useRef(new Animated.Value(0)).current;
   const logoScale = useRef(new Animated.Value(0.3)).current;
   const taglineOpacity = useRef(new Animated.Value(0)).current;
   const taglineTranslateY = useRef(new Animated.Value(30)).current;
 
   useEffect(() => {
-    // Start animations
-    const logoAnimation = Animated.parallel([
-      Animated.timing(logoOpacity, {
-        toValue: 1,
-        duration: 1000,
-        useNativeDriver: true,
-      }),
-      Animated.spring(logoScale, {
-        toValue: 1,
-        tension: 50,
-        friction: 8,
-        useNativeDriver: true,
-      }),
-    ]);
+    console.log("🟢 SplashScreen useEffect - Starting animations");
+    
+    try {
+      // Start animations
+      const logoAnimation = Animated.parallel([
+        Animated.timing(logoOpacity, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.spring(logoScale, {
+          toValue: 1,
+          tension: 50,
+          friction: 8,
+          useNativeDriver: true,
+        }),
+      ]);
 
-    const taglineAnimation = Animated.parallel([
-      Animated.timing(taglineOpacity, {
-        toValue: 1,
-        duration: 800,
-        delay: 500,
-        useNativeDriver: true,
-      }),
-      Animated.timing(taglineTranslateY, {
-        toValue: 0,
-        duration: 800,
-        delay: 500,
-        useNativeDriver: true,
-      }),
-    ]);
+      const taglineAnimation = Animated.parallel([
+        Animated.timing(taglineOpacity, {
+          toValue: 1,
+          duration: 800,
+          delay: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(taglineTranslateY, {
+          toValue: 0,
+          duration: 800,
+          delay: 500,
+          useNativeDriver: true,
+        }),
+      ]);
 
-    // Run animations
-    logoAnimation.start();
-    taglineAnimation.start();
+      // Run animations
+      console.log("🟢 Starting logo animation");
+      logoAnimation.start();
+      console.log("🟢 Starting tagline animation");
+      taglineAnimation.start();
 
-    // Auto-transition after 3 seconds
-    const timer = setTimeout(() => {
+      // Auto-transition after 3 seconds
+      console.log("🟢 Setting up auto-transition timer");
+      const timer = setTimeout(() => {
+        console.log("🟢 Auto-transition timer fired, calling onFinish");
+        onFinish();
+      }, 3000);
+
+      return () => {
+        console.log("🟢 Cleaning up splash screen timer");
+        clearTimeout(timer);
+      };
+    } catch (error) {
+      console.log("🚨 Error in SplashScreen useEffect:", error);
+      // Fallback to immediate transition
       onFinish();
-    }, 3000);
-
-    return () => clearTimeout(timer);
+    }
   }, []);
+
+  console.log("🟢 SplashScreen rendering UI");
 
   return (
     <View style={styles.container}>
