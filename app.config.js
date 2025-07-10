@@ -20,7 +20,10 @@ export default {
     assetBundlePatterns: ["**/*"],
     ios: {
       supportsTablet: true,
-      bundleIdentifier: "com.gilraz.numa"
+      bundleIdentifier: "com.gilraz.numa",
+      infoPlist: {
+        ITSAppUsesNonExemptEncryption: false
+      }
     },
     android: {
       package: "com.gilraz.numa",
