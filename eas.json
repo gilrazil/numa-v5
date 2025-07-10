@@ -16,19 +16,30 @@
       }
     },
     "preview": {
+      "developmentClient": false,
       "distribution": "store",
       "ios": {
         "resourceClass": "m-medium"
+      },
+      "env": {
+        "ENVIRONMENT": "preview"
       }
     },
     "production": {
       "distribution": "store",
       "ios": {
         "resourceClass": "m-medium"
+      },
+      "env": {
+        "ENVIRONMENT": "production"
       }
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "gil.raz.il@gmail.com"
+      }
+    }
   }
 } 
