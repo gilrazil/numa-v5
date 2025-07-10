@@ -4,6 +4,7 @@ export default {
   expo: {
     name: "Numa",
     slug: "numa-app",
+    owner: "gilraz",
     privacy: "public",
     platforms: ["ios", "android"],
     version: "1.0.0",
