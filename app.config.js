@@ -7,7 +7,7 @@ export default {
     owner: "gilraz",
     privacy: "public",
     platforms: ["ios", "android"],
-    version: "1.0.0",
+    version: "5.0.0",
     orientation: "portrait",
     icon: "./assets/icon.png",
     splash: {
@@ -22,12 +22,14 @@ export default {
     ios: {
       supportsTablet: true,
       bundleIdentifier: "com.gilraz.numa",
+      buildNumber: "1",
       infoPlist: {
         ITSAppUsesNonExemptEncryption: false
       }
     },
     android: {
       package: "com.gilraz.numa",
+      versionCode: 1,
       adaptiveIcon: {
         foregroundImage: "./assets/icon.png",
         backgroundColor: "#8B5CF6"
